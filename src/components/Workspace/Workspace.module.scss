@@ -1,0 +1,40 @@
+.title{
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.wrapper{
+    display: flex;
+}
+
+.listNotes{
+    list-style-type: none;
+    width: 100%;
+    outline: 2px dotted #00aa00;
+
+    @media screen and (min-width:480px) {
+        width:30%;
+    }
+
+}
+
+.listItems{
+    list-style-type: none;
+    width: 100%;
+    outline: 2px dotted #00aa00;
+
+    @media screen and (min-width:480px) {
+        width:70%;
+    }
+
+}
+
+.items{
+    width: 100%;
+    outline: 2px dotted #00aa00;
+
+    @media screen and (min-width:480px) {
+        width:70%;
+    }
+
+}

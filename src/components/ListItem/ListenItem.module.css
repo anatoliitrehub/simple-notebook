@@ -1,0 +1,11 @@
+.title{
+    font-size: 24px;
+    color: #0000FF;
+}
+
+.list{
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+    border-bottom: 1px dotted #333333;
+}

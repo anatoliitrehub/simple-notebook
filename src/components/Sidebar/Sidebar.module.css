@@ -1,0 +1,21 @@
+.title{
+    color: #FF0000;
+}
+
+.list{
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.icon{
+    width: 30px;
+    height: 30px;
+    fill: #000000;
+    transition: fill 200ms linear;
+}
+
+.icon:hover, .icon:focus{
+    fill:#ffffff;
+    cursor: pointer;
+}
