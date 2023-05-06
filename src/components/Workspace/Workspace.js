@@ -1,23 +1,17 @@
+import { NotesContext } from "../../Context/Context";
+import { useContext } from "react";
 import ListItem from "../ListItem/ListItem";
 import st from "./Workspace.module.scss";
 
 const Workspace = () => {
-  const notes = [
-    {
-      date: "date",
-      title: "Title",
-      text: "text",
-    },
-    {
-      date: "date1",
-      title: "Title1",
-      text: "text1",
-    },
-  ];
+  const { notes, filter } = useContext(NotesContext);
+  // console.log(notes);
+  const filtered = notes.filter((note) =>
+    note.title.toLowerCase().includes(filter)
+  );
 
   return (
     <>
-      {/* <p className={st.title}>Workspace</p> */}
       <div className={st.wrapper}>
         <ul className={st.listNotes}>
           {notes &&
@@ -30,11 +24,12 @@ const Workspace = () => {
                 </>
               );
             })}
+          {!notes && <li className={st.item}>There are no notes yet</li>}
         </ul>
 
         <ul className={st.listItems}>
-          {notes &&
-            notes.map((note) => {
+          {filtered &&
+            filtered.map((note) => {
               return (
                 <>
                   <ListItem key={1000 * Math.random()} note={note} />
