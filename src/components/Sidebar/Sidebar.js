@@ -1,4 +1,4 @@
-import st from "./Sidebar.module.css";
+import st from "./Sidebar.module.scss";
 import icons from "../../images/sprite.svg";
 import { NotesContext } from "../../Context/Context";
 import { useContext } from "react";

@@ -6,9 +6,10 @@ import st from "./Workspace.module.scss";
 const Workspace = () => {
   const { notes, filter } = useContext(NotesContext);
   // console.log(notes);
-  const filtered = notes.filter((note) =>
-    note.title.toLowerCase().includes(filter)
-  );
+  const filtered =
+    notes.filter((note) => note.title.toLowerCase().includes(filter)).length > 0
+      ? notes.filter((note) => note.title.toLowerCase().includes(filter))
+      : [{ title: "There are no matches" }];
 
   return (
     <>
@@ -16,10 +17,19 @@ const Workspace = () => {
         <ul className={st.listNotes}>
           {notes &&
             notes.map((note) => {
+              const { date, title, text } = note;
+              const dateNote = date
+                ? new Date(date).toLocaleDateString()
+                : null;
               return (
                 <>
                   <li key={200 * Math.random()} className={st.item}>
-                    {note.title}
+                    <span className={st.title}>{title}</span>
+                    <span>{dateNote}</span>
+                    <span>
+                      {text &&
+                        (text.length <= 15 ? text : text.slice(0, 9) + "...")}
+                    </span>
                   </li>
                 </>
               );
@@ -32,7 +42,10 @@ const Workspace = () => {
             filtered.map((note) => {
               return (
                 <>
-                  <ListItem key={1000 * Math.random()} note={note} />
+                  <ListItem
+                    key={(1000 * Math.random()).toString()}
+                    note={note}
+                  />
                 </>
               );
             })}

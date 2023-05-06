@@ -1,5 +1,5 @@
 .title{
-    font-size: 36px;
+    font-size: 20px;
     font-weight: 700;
 }
 
@@ -13,10 +13,12 @@
     list-style-type: none;
     width: 100%;
     // outline: 2px dotted #00aa00;
-    border-right: 1px double #212121;
+    border-right: 5px double #909090;
 
     @media screen and (min-width:480px) {
         width:30%;
+        max-height: 600px;
+    overflow-y: auto;
     }
 
 }
@@ -28,6 +30,8 @@
 
     @media screen and (min-width:480px) {
         width:70%;
+        max-height: 600px;
+        overflow-y: auto;
     }
 
 }
@@ -35,6 +39,8 @@
 .item{
     // width: 100%;
     // outline: 2px dotted #00aa00;
+    display: flex;
+    flex-direction: column;
 padding: 10px 15px;
     border-bottom: 1px dotted #333333;
 

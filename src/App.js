@@ -14,7 +14,7 @@ const initNotes = [
   {
     date: 1673390023766,
     title: "Title",
-    text: "text",
+    text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi labore asperiores facere dolor nihil ipsam aspernatur adipisci natus enim sunt delectus modi corporis libero repellat mollitia, cumque voluptates illo perspiciatis!",
   },
   {
     date: 1673391523766,
@@ -42,7 +42,6 @@ function App() {
         content: "",
       },
     ]);
-    const timeNote = new Date().toLocaleString();
   };
   const editNote = () => {};
   const deleteNote = () => {};
