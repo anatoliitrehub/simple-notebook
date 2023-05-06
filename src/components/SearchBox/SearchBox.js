@@ -1,4 +1,4 @@
-import st from "./SearchBox.module.css";
+import st from "./SearchBox.module.scss";
 import icons from "../../images/sprite.svg";
 import { useState } from "react";
 import { useContext, useEffect } from "react";
@@ -11,7 +11,7 @@ const SearchBox = () => {
 
   useEffect(() => {
     filterNote(text);
-    console.log(text);
+    // console.log(text);
   }, [text, filterNote]);
 
   // console.log(notes.filter((note) => note.title.toLowerCase().includes(text)));

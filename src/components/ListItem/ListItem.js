@@ -1,12 +1,12 @@
-import st from "./ListenItem.module.css";
+import st from "./ListenItem.module.scss";
 
 const ListItem = ({ note }) => {
   const { date, title, text } = note;
-  const dateNote = new Date(date).toLocaleString();
+  const dateNote = date ? new Date(date).toLocaleString() : null;
   return (
     <>
       <li className={st.list}>
-        <span>{dateNote}</span>
+        <span className={st.date}>{dateNote}</span>
         <span className={st.title}>{title}</span>
         <span>{text}</span>
       </li>
