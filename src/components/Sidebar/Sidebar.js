@@ -1,12 +1,15 @@
 import st from "./Sidebar.module.css";
 import icons from "../../images/sprite.svg";
+import { NotesContext } from "../../Context/Context";
+import { useContext } from "react";
 
 const Sidebar = () => {
+  const { newNote } = useContext(NotesContext);
   return (
     <>
       {/* <div className={st.title}>Sidebar</div> */}
       <ul className={st.list}>
-        <li>
+        <li onClick={() => newNote()}>
           <svg className={st.icon}>
             <use href={`${icons}#icon-plus`}></use>
           </svg>
