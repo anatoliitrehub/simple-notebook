@@ -26,12 +26,13 @@ const initNotes = [
 function App() {
   const [notes, setNotes] = useState(initNotes);
   const [filter, setFilter] = useState("");
+  const [selected, setSelected] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [formInput, setFormInput] = useState({
     title: "",
-    content: "",
+    text: "",
   });
   const newNote = () => {
     setNotes([
@@ -39,20 +40,52 @@ function App() {
       {
         date: Date.now(),
         title: "New note",
-        content: "",
+        text: "No text",
       },
     ]);
   };
-  const editNote = () => {};
-  const deleteNote = () => {};
+  const deleteNote = () => {
+    // console.log("delete", selected);
+    if (window.confirm("delete?")) {
+      // <Modal>
+      //   <p>Delete this note?</p>
+      //   <button>Delete</button>
+      //   <button>Cancel</button>
+      // </Modal>;
+
+      setNotes(notes.filter((item) => item.date !== selected));
+      setSelected("");
+    }
+  };
+  const editNote = () => {
+    console.log("edit", selected);
+    notes.forEach((item) => {
+      if (item.date === selected) {
+        setTitle(() => item.title);
+        setContent(() => item.text);
+      }
+    });
+
+    setModalOpen(true);
+  };
 
   const filterNote = (filterWord) => {
     setFilter(filterWord);
   };
 
+  const currentActive = (date) => {
+    setSelected(date);
+  };
+
   const handlerForm = (ev) => {
     ev.preventDefault();
     setFormInput({ title, content });
+    notes.forEach((item) => {
+      if (item.date === selected) {
+        item.title = title;
+        item.text = content;
+      }
+    });
     setTitle("");
     setContent("");
     setModalOpen(false);
@@ -61,16 +94,33 @@ function App() {
 
   const handlerInput = (ev) => {
     ev.preventDefault();
-    console.log(formInput);
+    // console.log(formInput);
     const { name, value } = ev.target;
     name === "title" ? setTitle(value) : setContent(value);
     // setFormInput({ [name]: value });
   };
 
+  const handlerCancelForm = () => {
+    setFormInput("");
+
+    setTitle("");
+    setContent("");
+    setModalOpen(false);
+  };
+
   return (
     <>
       <NotesContext.Provider
-        value={{ notes, filter, newNote, editNote, deleteNote, filterNote }}
+        value={{
+          notes,
+          filter,
+          selected,
+          currentActive,
+          newNote,
+          editNote,
+          deleteNote,
+          filterNote,
+        }}
       >
         <header>
           <div className="container">
@@ -95,20 +145,33 @@ function App() {
         </footer>
         {modalOpen && (
           <Modal>
-            <form onSubmit={handlerForm}>
+            <form onSubmit={handlerForm} className="editForm">
+              <label for="edittitle">Title:</label>
               <input
+                id="edittitle"
                 type="text"
                 name="title"
                 placeholder="Title"
                 onChange={handlerInput}
+                value={title}
+                required
               ></input>
-              <input
-                type="text"
+              <label for="edittext">Note text:</label>
+
+              <textarea
+                id="edittext"
                 name="content"
+                rows="4"
+                cols="50"
                 placeholder="Note content"
                 onChange={handlerInput}
-              ></input>
-              <button type="submit">Apply</button>
+                value={content}
+                required
+              ></textarea>
+              <div>
+                <button type="submit">Apply</button>
+                <button onClick={() => handlerCancelForm()}>Cancel</button>
+              </div>
             </form>
           </Modal>
         )}

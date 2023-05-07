@@ -1,4 +1,4 @@
-const styles = {
+const styleBack = {
   backgroundColor: "#333333",
   opacity: "0.5",
   position: "absolute",
@@ -10,12 +10,23 @@ const styles = {
   height: "100%",
 };
 
+const styleChild = {
+  backgroundColor: "#cfcfcf",
+  opacity: "1",
+  position: "absolute",
+  transform: "translate(50%,-50%)",
+  width: "50%",
+  height: "50%",
+  display: "flex",
+  alignItems: "center",
+  borderRadius: "10px",
+};
+
 export const Modal = ({ children }) => {
   return (
     <>
-      <div style={styles}>
-        <div>{children}</div>
-      </div>
+      <div style={styleBack}></div>
+      <div style={styleChild}>{children}</div>
     </>
   );
 };

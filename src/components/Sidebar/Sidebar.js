@@ -4,25 +4,39 @@ import { NotesContext } from "../../Context/Context";
 import { useContext } from "react";
 
 const Sidebar = () => {
-  const { newNote } = useContext(NotesContext);
+  const { selected, newNote, deleteNote, editNote } = useContext(NotesContext);
   return (
     <>
       {/* <div className={st.title}>Sidebar</div> */}
       <ul className={st.list}>
-        <li onClick={() => newNote()}>
-          <svg className={st.icon}>
-            <use href={`${icons}#icon-plus`}></use>
-          </svg>
+        <li>
+          <button className={st.button} onClick={() => newNote()}>
+            <svg className={st.icon}>
+              <use href={`${icons}#icon-plus`}></use>
+            </svg>
+          </button>
         </li>
         <li>
-          <svg className={st.icon}>
-            <use href={`${icons}#icon-bin`}></use>
-          </svg>
+          <button
+            className={st.button}
+            onClick={() => deleteNote()}
+            disabled={Boolean(!selected)}
+          >
+            <svg className={st.icon}>
+              <use href={`${icons}#icon-bin`}></use>
+            </svg>
+          </button>
         </li>
         <li>
-          <svg className={st.icon}>
-            <use href={`${icons}#icon-pencil`}></use>
-          </svg>
+          <button
+            className={st.button}
+            onClick={() => editNote()}
+            disabled={Boolean(!selected)}
+          >
+            <svg className={st.icon}>
+              <use href={`${icons}#icon-pencil`}></use>
+            </svg>
+          </button>
         </li>
       </ul>
     </>
