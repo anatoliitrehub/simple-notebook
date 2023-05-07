@@ -5,11 +5,11 @@ const ListItem = ({ note }) => {
   const dateNote = date ? new Date(date).toLocaleString() : null;
   return (
     <>
-      <li className={st.list}>
+      <div className={st.list}>
         <span className={st.date}>{dateNote}</span>
         <span className={st.title}>{title}</span>
         <span>{text}</span>
-      </li>
+      </div>
     </>
   );
 };

@@ -50,3 +50,12 @@ padding: 10px 15px;
     // }
 
 }
+
+.itemActive{
+    display: flex;
+    flex-direction: column;
+padding: 10px 15px;
+    border-bottom: 1px dotted #333333;
+color: #ffffff;
+    background-color: #909090;
+}

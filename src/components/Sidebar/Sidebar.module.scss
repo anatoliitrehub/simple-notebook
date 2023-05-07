@@ -11,11 +11,33 @@
 .icon{
     width: 30px;
     height: 30px;
-    fill: #000000;
+    fill: inherit;
     transition: fill 200ms linear;
 }
 
-.icon:hover, .icon:focus{
-    fill:#ffffff;
+
+
+.button{
+    fill: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    box-shadow: 3px 3px 1px 1px #333333;
+    border-radius: 5px;
+    transition: fill 100ms linear, transform 200ms linear, box-shadow 200ms linear;
+    ;
+
+}
+
+.button:hover{
+    fill:#573cf0;
     cursor: pointer;
+    box-shadow: 4px 6px 4px 3px #777777;
+transform: scale(1.1);
+}
+
+.button:active{
+    fill:#FF0000;
+    background-color: gold;
 }
