@@ -6,6 +6,13 @@ import Workspace from "./components/Workspace/Workspace";
 import { Modal } from "./components/Modal/Modal";
 import { NotesContext } from "./Context/Context";
 import { db } from "./DB/db";
+import {
+  getFetchDbData,
+  getFetchDbRecords,
+  postFetchDb,
+  getFetchDb,
+  createFetchDb,
+} from "./servicesapi/quintadb";
 
 import React, { useEffect, useState } from "react";
 
@@ -28,6 +35,20 @@ function App() {
   //   title: "",
   //   text: "",
   // });
+
+  // getFetchDb();
+
+  // createFetchDb("notes");
+
+  // getFetchDbData(); //get data fields
+
+  console.log(
+    getFetchDbRecords().then((data) =>
+      data.forEach((item) => console.log(item))
+    )
+  );
+
+  postFetchDb();
 
   useEffect(() => {
     (async () => {
