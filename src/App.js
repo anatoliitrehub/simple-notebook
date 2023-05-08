@@ -9,20 +9,6 @@ import { db } from "./DB/db";
 
 import React, { useEffect, useState } from "react";
 
-// const NotesContext = React.createContext(null);
-
-// const initNotes = [
-//   {
-//     date: 1673390023766,
-//     title: "Title",
-//     text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi labore asperiores facere dolor nihil ipsam aspernatur adipisci natus enim sunt delectus modi corporis libero repellat mollitia, cumque voluptates illo perspiciatis!",
-//   },
-//   {
-//     date: 1673391523766,
-//     title: "Title1",
-//     text: "text1",
-//   },
-// ];
 const initNotes = [
   {
     date: 1673391523766,
@@ -61,6 +47,7 @@ function App() {
     })().catch((error) => {
       console.log(`Failed to write: ${error}`);
     });
+    console.log("eff_note");
   }, [notes]);
 
   const newNote = () => {
@@ -108,6 +95,9 @@ function App() {
         item.text = content;
       }
     });
+    //update notes state
+    setNotes(notes.map((item) => item));
+
     setTitle("");
     setContent("");
     setModalOpen(false);
@@ -116,7 +106,6 @@ function App() {
 
   const handlerInput = (ev) => {
     ev.preventDefault();
-    // console.log(formInput);
     const { name, value } = ev.target;
     name === "title" ? setTitle(value) : setContent(value);
     // setFormInput({ [name]: value });
@@ -124,7 +113,6 @@ function App() {
 
   const handlerCancelForm = () => {
     // setFormInput("");
-
     setTitle("");
     setContent("");
     setModalOpen(false);
