@@ -1,61 +1,58 @@
-.title{
-    font-size: 20px;
-    font-weight: 700;
+.title {
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.wrapper{
-    display: flex;
-    text-align: left;
-    background-color: #efefef;
+.wrapper {
+  display: flex;
+  text-align: left;
+  background-color: #efefef;
+  height: 65vh;
 }
 
-.listNotes{
-    list-style-type: none;
-    width: 100%;
-    // outline: 2px dotted #00aa00;
-    border-right: 5px double #909090;
-
-    @media screen and (min-width:480px) {
-        width:30%;
-        max-height: 600px;
+.listNotes {
+//   list-style-type: none;
+  width: 30%;
+  // outline: 2px dotted #00aa00;
+  border-right: 5px double #909090;
+  padding-inline-start: 5px;
+  @media screen and (min-width: 480px) {
+    // width: 30%;
+    // max-height: 600px;
     overflow-y: auto;
-    }
-
+    padding-inline-start: 20px;
+  }
 }
 
-.listItems{
-    list-style-type: none;
-    width: 100%;
-    // outline: 2px dotted #00aa00;
+.listItems {
+//   list-style-type: none;
+  width: 70%;
+  // outline: 2px dotted #00aa00;
 
-    @media screen and (min-width:480px) {
-        width:70%;
-        max-height: 600px;
-        overflow-y: auto;
-    }
-
+  @media screen and (min-width: 480px) {
+    // max-height: 600px;
+    overflow-y: auto;
+  }
 }
 
-.item{
-    // width: 100%;
-    // outline: 2px dotted #00aa00;
-    display: flex;
-    flex-direction: column;
-padding: 10px 15px;
-    border-bottom: 1px dotted #333333;
+.item {
+  // width: 100%;
+  // outline: 2px dotted #00aa00;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  border-bottom: 1px dotted #333333;
 
-
-    // @media screen and (min-width:480px) {
-    //     width:70%;
-    // }
-
+  // @media screen and (min-width:480px) {
+  //     width:70%;
+  // }
 }
 
-.itemActive{
-    display: flex;
-    flex-direction: column;
-padding: 10px 15px;
-    border-bottom: 1px dotted #333333;
-color: #ffffff;
-    background-color: #909090;
+.itemActive {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  border-bottom: 1px dotted #333333;
+  color: #ffffff;
+  background-color: #909090;
 }

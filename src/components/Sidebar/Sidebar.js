@@ -18,7 +18,7 @@ const Sidebar = () => {
         </li>
         <li>
           <button
-            className={st.button}
+            className={selected ? st.button : st.buttonDisabled}
             onClick={() => deleteNote()}
             disabled={Boolean(!selected)}
           >
@@ -29,7 +29,7 @@ const Sidebar = () => {
         </li>
         <li>
           <button
-            className={st.button}
+            className={selected ? st.button : st.buttonDisabled}
             onClick={() => editNote()}
             disabled={Boolean(!selected)}
           >
