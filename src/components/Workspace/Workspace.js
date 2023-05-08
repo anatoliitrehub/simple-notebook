@@ -70,7 +70,7 @@ const Workspace = () => {
 
         <div className={st.listItems}>
           <ListItem
-            key={(1000 * Math.random()).toString()}
+            key={(1000 * Math.random()).toString() + "aBc"}
             note={activeNoteItem}
           />
         </div>

@@ -5,35 +5,64 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Workspace from "./components/Workspace/Workspace";
 import { Modal } from "./components/Modal/Modal";
 import { NotesContext } from "./Context/Context";
+import { db } from "./DB/db";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // const NotesContext = React.createContext(null);
 
+// const initNotes = [
+//   {
+//     date: 1673390023766,
+//     title: "Title",
+//     text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi labore asperiores facere dolor nihil ipsam aspernatur adipisci natus enim sunt delectus modi corporis libero repellat mollitia, cumque voluptates illo perspiciatis!",
+//   },
+//   {
+//     date: 1673391523766,
+//     title: "Title1",
+//     text: "text1",
+//   },
+// ];
 const initNotes = [
   {
-    date: 1673390023766,
-    title: "Title",
-    text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi labore asperiores facere dolor nihil ipsam aspernatur adipisci natus enim sunt delectus modi corporis libero repellat mollitia, cumque voluptates illo perspiciatis!",
-  },
-  {
     date: 1673391523766,
-    title: "Title1",
-    text: "text1",
+    title: "Title",
+    text: "first text",
   },
 ];
 
 function App() {
-  const [notes, setNotes] = useState(initNotes);
+  const [notes, setNotes] = useState([]);
   const [filter, setFilter] = useState("");
   const [selected, setSelected] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [formInput, setFormInput] = useState({
-    title: "",
-    text: "",
-  });
+  // const [formInput, setFormInput] = useState({
+  //   title: "",
+  //   text: "",
+  // });
+
+  useEffect(() => {
+    (async () => {
+      return await db.notes.toArray();
+    })().then((data) => {
+      setNotes(data.length > 0 ? data : initNotes);
+    });
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      //write current notes to indexDB
+      db.transaction("rw", db.notes, async () => {
+        db.notes.clear();
+        await db.notes.bulkPut(notes);
+      });
+    })().catch((error) => {
+      console.log(`Failed to write: ${error}`);
+    });
+  }, [notes]);
+
   const newNote = () => {
     setNotes([
       ...notes,
@@ -45,20 +74,13 @@ function App() {
     ]);
   };
   const deleteNote = () => {
-    // console.log("delete", selected);
     if (window.confirm("delete?")) {
-      // <Modal>
-      //   <p>Delete this note?</p>
-      //   <button>Delete</button>
-      //   <button>Cancel</button>
-      // </Modal>;
-
       setNotes(notes.filter((item) => item.date !== selected));
       setSelected("");
     }
   };
   const editNote = () => {
-    console.log("edit", selected);
+    // console.log("edit", selected);
     notes.forEach((item) => {
       if (item.date === selected) {
         setTitle(() => item.title);
@@ -79,7 +101,7 @@ function App() {
 
   const handlerForm = (ev) => {
     ev.preventDefault();
-    setFormInput({ title, content });
+    // setFormInput({ title, content });
     notes.forEach((item) => {
       if (item.date === selected) {
         item.title = title;
@@ -101,7 +123,7 @@ function App() {
   };
 
   const handlerCancelForm = () => {
-    setFormInput("");
+    // setFormInput("");
 
     setTitle("");
     setContent("");
@@ -146,9 +168,11 @@ function App() {
         {modalOpen && (
           <Modal>
             <form onSubmit={handlerForm} className="editForm">
-              <label for="edittitle">Title:</label>
+              <p>Edit note</p>
+              <label htmlFor="edittitle">Title:</label>
               <input
                 id="edittitle"
+                className="modalInput"
                 type="text"
                 name="title"
                 placeholder="Title"
@@ -156,12 +180,13 @@ function App() {
                 value={title}
                 required
               ></input>
-              <label for="edittext">Note text:</label>
+              <label htmlFor="edittext">Note text:</label>
 
               <textarea
                 id="edittext"
+                className="modalTextArea"
                 name="content"
-                rows="4"
+                rows="5"
                 cols="50"
                 placeholder="Note content"
                 onChange={handlerInput}
