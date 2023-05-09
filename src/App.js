@@ -186,6 +186,17 @@ function App() {
             <p style={{ textAlign: "right" }}>
               Notebook created by Trehub Anatolii
             </p>
+            {currentDb !== "IndDB" && (
+              <p
+                style={{
+                  textAlign: "left",
+                  color: "#ff0000",
+                  fontWeight: "700",
+                }}
+              >
+                DEMO (request limit exceeded)
+              </p>
+            )}
           </div>
         </footer>
         {modalOpen && (
