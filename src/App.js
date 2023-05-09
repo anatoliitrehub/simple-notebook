@@ -7,6 +7,7 @@ import { Modal } from "./components/Modal/Modal";
 import { NotesContext } from "./Context/Context";
 import { db } from "./DB/db";
 import {
+  getFetchDbName,
   getFetchDbData,
   getFetchDbRecords,
   postFetchDb,
@@ -31,10 +32,13 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [currentDb, setCurrentDb] = useState("IndDB");
   // const [formInput, setFormInput] = useState({
   //   title: "",
   //   text: "",
   // });
+
+  // getFetchDbName();
 
   // getFetchDb();
 
@@ -42,33 +46,37 @@ function App() {
 
   // getFetchDbData(); //get data fields
 
-  console.log(
-    getFetchDbRecords().then((data) =>
-      data.forEach((item) => console.log(item))
-    )
-  );
-
-  postFetchDb();
-
   useEffect(() => {
-    (async () => {
-      return await db.notes.toArray();
-    })().then((data) => {
-      setNotes(data.length > 0 ? data : initNotes);
-    });
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      //write current notes to indexDB
-      db.transaction("rw", db.notes, async () => {
-        db.notes.clear();
-        await db.notes.bulkPut(notes);
+    currentDb === "IndDB" &&
+      (async () => {
+        return await db.notes.toArray();
+      })().then((data) => {
+        setNotes(data.length > 0 ? data : initNotes);
       });
-    })().catch((error) => {
-      console.log(`Failed to write: ${error}`);
-    });
-    console.log("eff_note");
+
+    currentDb === "QuiDB" && setNotes(initNotes);
+
+    currentDb === "QuiDB" &&
+      console.log(
+        getFetchDbRecords().then((data) =>
+          data.forEach((item) => console.log(item))
+        )
+      );
+
+    // postFetchDb();
+  }, [currentDb]);
+
+  useEffect(() => {
+    currentDb === "IndDB" &&
+      (async () => {
+        //write current notes to indexDB
+        db.transaction("rw", db.notes, async () => {
+          db.notes.clear();
+          await db.notes.bulkPut(notes);
+        });
+      })().catch((error) => {
+        console.log(`Failed to write: ${error}`);
+      });
   }, [notes]);
 
   const newNote = () => {
@@ -105,6 +113,10 @@ function App() {
 
   const currentActive = (date) => {
     setSelected(date);
+  };
+
+  const changeDb = () => {
+    setCurrentDb(currentDb === "IndDB" ? "QuiDB" : "IndDB");
   };
 
   const handlerForm = (ev) => {
@@ -146,11 +158,13 @@ function App() {
           notes,
           filter,
           selected,
+          currentDb,
           currentActive,
           newNote,
           editNote,
           deleteNote,
           filterNote,
+          changeDb,
         }}
       >
         <header>

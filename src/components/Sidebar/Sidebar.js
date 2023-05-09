@@ -4,7 +4,8 @@ import { NotesContext } from "../../Context/Context";
 import { useContext } from "react";
 
 const Sidebar = () => {
-  const { selected, newNote, deleteNote, editNote } = useContext(NotesContext);
+  const { selected, currentDb, newNote, deleteNote, editNote, changeDb } =
+    useContext(NotesContext);
   return (
     <>
       {/* <div className={st.title}>Sidebar</div> */}
@@ -38,6 +39,14 @@ const Sidebar = () => {
             </svg>
           </button>
         </li>
+        <li>
+          <button className={st.button} onClick={() => changeDb()}>
+            <svg className={st.icon}>
+              <use href={`${icons}#icon-database`}></use>
+            </svg>
+          </button>
+        </li>
+        <li className={st.base}>{currentDb}</li>
       </ul>
     </>
   );
